@@ -11,6 +11,7 @@
                 "-g",
                 "${file}",
                 "${workspaceFolder}/glad.c",
+                "${workspaceFolder}/Mesh.cpp",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "-I/usr/local/include",
