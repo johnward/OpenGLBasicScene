@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MESH_H
+#define MESH_H
 
 #include <GL/glew.h>
 
@@ -17,3 +18,5 @@ private:
     GLuint VAO, VBO, IBO;
     GLsizei indexCount;
 };
+
+#endif

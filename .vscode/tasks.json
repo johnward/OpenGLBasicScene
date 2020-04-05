@@ -9,9 +9,10 @@
             "command": "/usr/bin/g++",
             "args": [
                 "-g",
-                "${file}",
-                "${workspaceFolder}/glad.c",
+                "${workspaceFolder}/main.cpp",
                 "${workspaceFolder}/Mesh.cpp",
+                "${workspaceFolder}/JPShader.cpp",
+                "${workspaceFolder}/GLWindow.cpp",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "-I/usr/local/include",
