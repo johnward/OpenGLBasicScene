@@ -13,12 +13,12 @@ public:
 
     int initialise();
 
-    GLfloat getBufferWidth() { return bufferWidth; }
-    GLfloat getBufferHeight() { return bufferHeight; }
+    GLfloat getBufferWidth();
+    GLfloat getBufferHeight();
 
-    bool getShouldClose() { return glfwWindowShouldClose(mainWindow); }
+    bool getShouldClose();
 
-    void swapBuffers() { glfwSwapBuffers(mainWindow); }
+    void swapBuffers();
 
     ~GLWindow();
 
