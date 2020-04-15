@@ -11,12 +11,16 @@
 
 #include "JPShader.h"
 #include "GLWindow.h"
+#include "Camera.h"
 
 const float toRadians = 3.14159265f / 180.0f;
 
 std::vector<Mesh *> meshList;
 std::vector<JPShader> shaderList;
 GLWindow mainWindow;
+Camera camera;
+
+void FramebufferResize(GLFWwindow *window, float height, float width);
 
 // Vertex Shader
 static const char *vShader = "shaders/shader.vert";
@@ -91,11 +95,14 @@ int main()
 {
 	mainWindow = GLWindow(800, 600);
 	mainWindow.initialise();
+
+	camera = Camera();
+
 	CreateObjects();
 	//CreateCube();
 	CreateShaders();
 
-	GLuint uniformProjection = 0, uniformModel = 0;
+	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0;
 
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / (GLfloat)mainWindow.getBufferHeight(), 0.1f, 100.0f);
 
@@ -105,28 +112,44 @@ int main()
 	// main loop until window closed
 	while (!mainWindow.getShouldClose())
 	{
-		// get and handle user input events
-		glfwPollEvents();
-
-		//clear the window
+		//clear the windowglm::value_ptr(projection)
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		shaderList[0].UseShader();
-		uniformModel = shaderList[0].GetModelLocation();
-		uniformProjection = shaderList[0].GetProjectionLocation();
-		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
+
+		glUniformMatrix4fv(shaderList[0].GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projection));
+
+		float projectionVal[16] = {0.0f};
+		glGetUniformfv(shaderList[0].GetShaderID(), shaderList[0].GetProjectionLocation(), projectionVal);
+
+		//glm::vec4 view = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
+		glm::mat4 view = glm::mat4(glm::vec4(1.0f, 0.0f, 0.0f, 0.0f),
+								   glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
+								   glm::vec4(0.0f, 0.0f, 1.0f, 0.0f),
+								   glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
+
+		//glUniform4fv(uniformView, 1, glm::value_ptr(view));
+		glUniformMatrix4fv(shaderList[0].GetViewLocation(), 1, GL_FALSE, glm::value_ptr(view));
+
+		float viewVal[16] = {0.0f};
+		//glGetUniformfv(shaderList[0].GetShaderID(), shaderList[0].GetViewLocation(), viewVal);
+		glGetUniformfv(shaderList[0].GetShaderID(), shaderList[0].GetViewLocation(), viewVal);
 
 		glm::mat4 model(1.0f);
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.5f));
 		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, &model[0][0]);
+		glUniformMatrix4fv(uniformModel = shaderList[0].GetModelLocation(), 1, GL_FALSE, glm::value_ptr(model));
+
+		float modelVal[16] = {0.0f};
+		glGetUniformfv(shaderList[0].GetShaderID(), shaderList[0].GetModelLocation(), modelVal);
+
 		meshList[0]->RenderMesh();
 
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0.0f, 1.0f, -2.5f));
 		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, &model[0][0]);
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		meshList[1]->RenderMesh();
 
 		//model = glm::mat4(1.0f);
@@ -137,8 +160,10 @@ int main()
 		//meshList[2]->RenderMesh();
 
 		glUseProgram(0);
-
 		mainWindow.swapBuffers();
+
+		// get and handle user input events
+		glfwPollEvents();
 	}
 
 	return 0;

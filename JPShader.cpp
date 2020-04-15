@@ -1,4 +1,7 @@
 #include "JPShader.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 JPShader::JPShader()
 {
@@ -46,19 +49,40 @@ std::string JPShader::ReadFile(const char *fileLocation)
     return content;
 }
 
-GLuint JPShader::GetProjectionLocation()
-{
-    return uniformProjection;
-}
-
-GLuint JPShader::GetModelLocation()
-{
-    return uniformModel;
-}
-
 void JPShader::UseShader()
 {
     glUseProgram(shaderID);
+}
+
+void JPShader::GetShaderUniformsInfo()
+{
+    //glGetProgramInterface
+    GLint uniformsNum = 0;
+    glGetProgramiv(shaderID, GL_ACTIVE_UNIFORMS, &uniformsNum);
+    if (uniformsNum > 0)
+    {
+        GLint maxLength;
+        glGetProgramiv(shaderID, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxLength);
+        char *name = new char[maxLength];
+        for (int i = 0; i < uniformsNum; ++i)
+        {
+            GLenum type;
+            GLsizei nameLength;
+            GLint size;
+            glGetActiveUniform(shaderID, i, maxLength, &nameLength, &size, &type, name);
+
+            float views[3] = {0.0f};
+            glGetnUniformfv(shaderID, uniformView, sizeof(float), views);
+
+            float projection[9] = {0.0f};
+            glGetUniformfv(shaderID, uniformProjection, projection);
+
+            float model[9] = {0.0f};
+            glGetUniformfv(shaderID, uniformModel, model);
+            printf("Name Length: %d, Size: %i, Type: %i, Name: %s", maxLength, size, type, name);
+        }
+        delete name;
+    }
 }
 
 void JPShader::ClearShader()
@@ -108,6 +132,7 @@ void JPShader::CompileShader(const char *vertexCode, const char *fragmentCode)
         return;
     }
 
+    uniformView = glGetUniformLocation(shaderID, "view");
     uniformModel = glGetUniformLocation(shaderID, "model");
     uniformProjection = glGetUniformLocation(shaderID, "projection");
 }

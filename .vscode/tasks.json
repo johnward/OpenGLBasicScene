@@ -13,6 +13,7 @@
                 "${workspaceFolder}/Mesh.cpp",
                 "${workspaceFolder}/JPShader.cpp",
                 "${workspaceFolder}/GLWindow.cpp",
+                "${workspaceFolder}/Camera.cpp",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "-I/usr/local/include",

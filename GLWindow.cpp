@@ -4,12 +4,26 @@ GLWindow::GLWindow()
 {
     width = 800;
     height = 600;
+    lastX = 0.0f;
+    lastY = 0.0f;
+    xChange = 0.0f;
+    yChange = 0.0f;
+
+    for (size_t i = 0; i < 1024; i++)
+    {
+        keys[i] = 0;
+    }
 }
 
 GLWindow::GLWindow(GLint windowWidth, GLint windowHeight)
 {
     width = windowWidth;
     height = windowHeight;
+
+    for (size_t i = 0; i < 1024; i++)
+    {
+        keys[i] = 0;
+    }
 }
 
 int GLWindow::initialise()
@@ -47,8 +61,14 @@ int GLWindow::initialise()
     glfwGetFramebufferSize(mainWindow, &bufferWidth, &bufferHeight);
 
     // set the context for glew to use
-    // THis window is where OpenGL should draw to
+    // This window is where OpenGL should draw to
     glfwMakeContextCurrent(mainWindow);
+
+    //handle key + mouse input
+    createCallbacks();
+
+    //disable the curson
+    glfwSetInputMode(mainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     // Allow modern extensions features
     glewExperimental = GL_TRUE;
@@ -66,7 +86,74 @@ int GLWindow::initialise()
     // Set up our view port size
     glViewport(0, 0, bufferWidth, bufferHeight);
 
+    glfwSetWindowUserPointer(mainWindow, this);
+
     return 0;
+}
+
+// Set the key press callback etc
+void GLWindow::createCallbacks()
+{
+    glfwSetKeyCallback(mainWindow, handleKeys);
+    glfwSetCursorPosCallback(mainWindow, handleMouse);
+}
+
+GLfloat GLWindow::getXChange()
+{
+    GLfloat theChange = xChange;
+    xChange = 0.0f;
+    return theChange;
+}
+
+GLfloat GLWindow::getYChange()
+{
+    GLfloat theChange = yChange;
+    yChange = 0.0f;
+    return theChange;
+}
+
+void GLWindow::handleKeys(GLFWwindow *window, int key, int code, int action, int mode)
+{
+    GLWindow *theWindow = static_cast<GLWindow *>(glfwGetWindowUserPointer(window));
+
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+    {
+        glfwSetWindowShouldClose(window, GL_TRUE);
+    }
+
+    if (key >= 0 && key < 1024)
+    {
+        if (action == GLFW_PRESS)
+        {
+            theWindow->keys[key] = true;
+            //printf("Pressed: %d", key);
+        }
+        else if (action == GLFW_RELEASE)
+        {
+            theWindow->keys[key] = false;
+            //printf("Released: %d", key);
+        }
+    }
+}
+
+void GLWindow::handleMouse(GLFWwindow *window, double xPos, double yPos)
+{
+    GLWindow *theWindow = static_cast<GLWindow *>(glfwGetWindowUserPointer(window));
+
+    if (theWindow->mouseFirstMove)
+    {
+        theWindow->lastX = xPos;
+        theWindow->lastY = yPos;
+        theWindow->mouseFirstMove = false;
+    }
+
+    theWindow->xChange = xPos - theWindow->lastX;
+    theWindow->yChange = theWindow->lastY - yPos; // Inverted mouse controls
+
+    theWindow->lastX = xPos;
+    theWindow->lastY = yPos;
+
+    //printf("x:%.6f, y:%.6f\n", theWindow->xChange, theWindow->yChange);
 }
 
 GLWindow::~GLWindow()
