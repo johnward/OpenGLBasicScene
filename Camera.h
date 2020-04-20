@@ -10,6 +10,7 @@ class Camera
 {
 public:
     Camera();
+
     ~Camera();
 
     void ProcessCameraInput(GLFWwindow *window);

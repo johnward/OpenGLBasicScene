@@ -19,6 +19,10 @@ GLWindow::GLWindow(GLint windowWidth, GLint windowHeight)
 {
     width = windowWidth;
     height = windowHeight;
+    lastX = 0.0f;
+    lastY = 0.0f;
+    xChange = 0.0f;
+    yChange = 0.0f;
 
     for (size_t i = 0; i < 1024; i++)
     {
@@ -153,7 +157,7 @@ void GLWindow::handleMouse(GLFWwindow *window, double xPos, double yPos)
     theWindow->lastX = xPos;
     theWindow->lastY = yPos;
 
-    //printf("x:%.6f, y:%.6f\n", theWindow->xChange, theWindow->yChange);
+    printf("x:%.6f, y:%.6f\n", theWindow->xChange, theWindow->yChange);
 }
 
 GLWindow::~GLWindow()

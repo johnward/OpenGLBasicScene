@@ -11,14 +11,17 @@
 
 #include "JPShader.h"
 #include "GLWindow.h"
-#include "Camera.h"
+#include "UCamera.h"
 
 const float toRadians = 3.14159265f / 180.0f;
 
 std::vector<Mesh *> meshList;
 std::vector<JPShader> shaderList;
 GLWindow mainWindow;
-Camera camera;
+UCamera camera;
+
+GLfloat deltaTime = 0.0f;
+GLfloat lastTime = 0.0f;
 
 void FramebufferResize(GLFWwindow *window, float height, float width);
 
@@ -55,7 +58,7 @@ void CreateObjects()
 void CreateCube()
 {
 	unsigned int indices[] = {
-		0, 1, 2, // Front - top triangle
+		0, 1, 2, // Front - tstartUpop triangle
 		1, 2, 3, // Front
 		4, 5, 6, // Back - top triangle
 		5, 6, 7, // Back
@@ -63,7 +66,7 @@ void CreateCube()
 		3, 5, 7, // Right Side Back
 		0, 4, 6, // Left
 		0, 6, 2, // Left
-		0, 4, 5, // Top
+		0, 4, 5, // startUp
 		0, 1, 5, // Top
 		2, 6, 7, // Bottom
 		2, 3, 7	 // Bottom
@@ -96,11 +99,16 @@ int main()
 	mainWindow = GLWindow(800, 600);
 	mainWindow.initialise();
 
-	camera = Camera();
-
 	CreateObjects();
 	//CreateCube();
 	CreateShaders();
+
+	camera = UCamera(glm::vec3(0.0f, 2.0f, 0.0f),
+					 glm::vec3(0.0f, 1.0f, 0.0f),
+					 -90.0f,
+					 0.0f,
+					 5.0f,
+					 1.0f);
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0;
 
@@ -112,37 +120,34 @@ int main()
 	// main loop until window closed
 	while (!mainWindow.getShouldClose())
 	{
+		GLfloat currentTime = glfwGetTime(); // SDL_GetPErformanceCounter() <- Need to convert to seconds
+		deltaTime = currentTime - lastTime;	 // (currentTime-lastTime)*1000 / SDL_GetPerformanceFrequency() converts it to seconds
+		lastTime = currentTime;
+
 		//clear the windowglm::value_ptr(projection)
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		camera.keyControl(mainWindow.getKeys(), deltaTime);
+		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
+
 		shaderList[0].UseShader();
 
 		glUniformMatrix4fv(shaderList[0].GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projection));
+		//float projectionVal[16] = {0.0f};
+		//glGetUniformfv(shaderList[0].GetShaderID(), shaderList[0].GetProjectionLocation(), projectionVal);
 
-		float projectionVal[16] = {0.0f};
-		glGetUniformfv(shaderList[0].GetShaderID(), shaderList[0].GetProjectionLocation(), projectionVal);
-
-		//glm::vec4 view = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
-		glm::mat4 view = glm::mat4(glm::vec4(1.0f, 0.0f, 0.0f, 0.0f),
-								   glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
-								   glm::vec4(0.0f, 0.0f, 1.0f, 0.0f),
-								   glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
-
-		//glUniform4fv(uniformView, 1, glm::value_ptr(view));
-		glUniformMatrix4fv(shaderList[0].GetViewLocation(), 1, GL_FALSE, glm::value_ptr(view));
-
-		float viewVal[16] = {0.0f};
+		glUniformMatrix4fv(shaderList[0].GetViewLocation(), 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
+		//float viewVal[16] = {0.0f};
 		//glGetUniformfv(shaderList[0].GetShaderID(), shaderList[0].GetViewLocation(), viewVal);
-		glGetUniformfv(shaderList[0].GetShaderID(), shaderList[0].GetViewLocation(), viewVal);
 
 		glm::mat4 model(1.0f);
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.5f));
 		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
-		glUniformMatrix4fv(uniformModel = shaderList[0].GetModelLocation(), 1, GL_FALSE, glm::value_ptr(model));
 
-		float modelVal[16] = {0.0f};
-		glGetUniformfv(shaderList[0].GetShaderID(), shaderList[0].GetModelLocation(), modelVal);
+		glUniformMatrix4fv(uniformModel = shaderList[0].GetModelLocation(), 1, GL_FALSE, glm::value_ptr(model));
+		//float modelVal[16] = {0.0f};
+		//glGetUniformfv(shaderList[0].GetShaderID(), shaderList[0].GetModelLocation(), modelVal);
 
 		meshList[0]->RenderMesh();
 
