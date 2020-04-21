@@ -108,7 +108,7 @@ int main()
 					 -90.0f,
 					 0.0f,
 					 5.0f,
-					 1.0f);
+					 0.5f);
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0;
 
