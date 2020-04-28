@@ -37,13 +37,13 @@ void Texture::LoadTexture()
 
     glTexImage2D(GL_TEXTURE_2D,
                  0,
-                 GL_RGBA,
+                 GL_RGB,
                  width,
                  height,
                  0,
-                 GL_RGBA,
+                 GL_RGB,
                  GL_UNSIGNED_BYTE,
-                 texData);
+                 texData); //GL_RGBA if png
 
     glGenerateMipmap(GL_TEXTURE_2D);
 

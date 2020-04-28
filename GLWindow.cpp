@@ -72,7 +72,7 @@ int GLWindow::initialise()
     createCallbacks();
 
     //disable the curson
-    glfwSetInputMode(mainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    //glfwSetInputMode(mainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     // Allow modern extensions features
     glewExperimental = GL_TRUE;
