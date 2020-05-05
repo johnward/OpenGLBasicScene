@@ -27,10 +27,7 @@
                 "-lglfw",
                 "-ldl",
                 "-lGLEW",
-                "-lftgl",
-                "-lSOIL",
-                "-lSDL2",
-                "-lSDL2main"
+                "-lSOIL"
             ],
             "options": {
                 "cwd": "/usr/bin"

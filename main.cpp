@@ -28,6 +28,7 @@ GLfloat lastTime = 0.0f;
 
 Texture brinkTexture;
 Texture dirtyTexture;
+Texture brick2Texture;
 
 void FramebufferResize(GLFWwindow *window, float height, float width);
 
@@ -80,17 +81,17 @@ void CreateCube()
 	};
 
 	GLfloat vertices[] = {
-		-1.0f, 1.0f, 0.0f,	// 0 Left Top Front
-		1.0f, 1.0f, 0.0f,	// 1 Right Top Front
-		-1.0f, -1.0f, 0.0f, // 2 Left Bottom Front
-		1.0f, -1.0f, 0.0f,	// 3 Right Bottom Front
-		-1.0f, 1.0f, 1.0f,	// 4 Left Top Back
-		1.0f, 1.0f, 1.0f,	// 5 Right Top Back
-		-1.0f, -1.0f, 1.0f, // 6 Left Bottom Back
-		1.0f, -1.0f, 1.0f}; // 7 Right Bottom Back*/
+		-1.0f, 1.0f, 0.0f, 0.0f, 1.0f,	// 0 Left Top Front
+		1.0f, 1.0f, 0.0f, 1.0f, 1.0f,	// 1 Right Top Front
+		-1.0f, -1.0f, 0.0f, 0.0f, 0.0f, // 2 Left Bottom Front
+		1.0f, -1.0f, 0.0f, 1.0f, 0.0f,	// 3 Right Bottom Front
+		-1.0f, 1.0f, 1.0f, 0.0f, 1.0f,	// 4 Left Top Back
+		1.0f, 1.0f, 1.0f, 1.0f, 1.0f,	// 5 Right Top Back
+		-1.0f, -1.0f, 1.0f, 0.0f, 0.0f, // 6 Left Bottom Back
+		1.0f, -1.0f, 1.0f, 1.0f, 0.0f}; // 7 Right Bottom Back*/
 
 	Mesh *cube1 = new Mesh();
-	cube1->CreateMesh(vertices, indices, 24, 36);
+	cube1->CreateMesh(vertices, indices, 40, 36);
 	meshList.push_back(cube1);
 }
 
@@ -122,6 +123,9 @@ int main()
 
 	dirtyTexture = Texture((char *)"textures/concrete_dirty.jpg");
 	dirtyTexture.LoadTexture();
+
+	brick2Texture = Texture((char *)"textures/wall.jpg");
+	brick2Texture.LoadTexture();
 
 	dirtyTexture.UseTexture();
 
@@ -175,11 +179,12 @@ int main()
 		dirtyTexture.UseTexture();
 		meshList[1]->RenderMesh();
 
-		//model = glm::mat4(1.0f);
-		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.5f));
-		//model = glm::rotate(model, 60 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		//model = scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
-		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		// model = glm::mat4(1.0f);
+		// model = glm::translate(model, glm::vec3(0.0f, 0.0f, -7.5f));
+		// model = glm::rotate(model, 60 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		// model = scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
+		// glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		// brick2Texture.UseTexture();
 		//meshList[2]->RenderMesh();
 
 		glUseProgram(0);
