@@ -15,6 +15,7 @@
 #include "GLWindow.h"
 #include "UCamera.h"
 #include "Texture.h"
+#include "Light.h"
 
 const float toRadians = 3.14159265f / 180.0f;
 
@@ -29,6 +30,8 @@ GLfloat lastTime = 0.0f;
 Texture brinkTexture;
 Texture dirtyTexture;
 Texture brick2Texture;
+
+Light mainLight;
 
 void FramebufferResize(GLFWwindow *window, float height, float width);
 
@@ -129,6 +132,8 @@ int main()
 
 	dirtyTexture.UseTexture();
 
+	mainLight = Light(1.0f, 1.0f, 1.0f, 0.2f);
+
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0;
 
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / (GLfloat)mainWindow.getBufferHeight(), 0.1f, 100.0f);
@@ -151,6 +156,8 @@ int main()
 		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
 
 		shaderList[0].UseShader();
+
+		mainLight.UseLight(shaderList[0].GetAmbientIntensityLocation(), shaderList[0].GetAmbientColourLocation());
 
 		glUniformMatrix4fv(shaderList[0].GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projection));
 		//float projectionVal[16] = {0.0f};

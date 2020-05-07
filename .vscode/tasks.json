@@ -15,6 +15,7 @@
                 "${workspaceFolder}/GLWindow.cpp",
                 "${workspaceFolder}/UCamera.cpp",
                 "${workspaceFolder}/Texture.cpp",
+                "${workspaceFolder}/Light.cpp",
                 "-o",
                 "${fileDirname}/main.exe",
                 //"${fileDirname}/${fileBasenameNoExtension}",

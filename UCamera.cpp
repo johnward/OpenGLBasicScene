@@ -51,12 +51,12 @@ void UCamera::mouseControl(GLfloat xChange, GLfloat yChange)
     xChange *= turnSpeed;
     yChange *= turnSpeed;
 
-    printf("xChange: %.6f, yChange: %.6f\n", xChange, yChange);
+    //printf("xChange: %.6f, yChange: %.6f\n", xChange, yChange);
 
     yaw += xChange;
     pitch += yChange;
 
-    printf("Pitch: %.6f, Yaw: %.6f\n", pitch, yaw);
+    //printf("Pitch: %.6f, Yaw: %.6f\n", pitch, yaw);
 
     if (pitch > 89.0f) // pitch limit
     {

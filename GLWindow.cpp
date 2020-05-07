@@ -157,7 +157,7 @@ void GLWindow::handleMouse(GLFWwindow *window, double xPos, double yPos)
     theWindow->lastX = xPos;
     theWindow->lastY = yPos;
 
-    printf("x:%.6f, y:%.6f\n", theWindow->xChange, theWindow->yChange);
+    //printf("x:%.6f, y:%.6f\n", theWindow->xChange, theWindow->yChange);
 }
 
 GLWindow::~GLWindow()
