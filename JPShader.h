@@ -26,6 +26,8 @@ public:
     GLuint GetShaderID() { return shaderID; }
     GLuint GetAmbientIntensityLocation() { return uniformAmbientIntensity; }
     GLuint GetAmbientColourLocation() { return uniformAmbientColour; }
+    GLuint GetDiffuseIntensityLocation() { return uniformDiffuseIntensity; }
+    GLuint GetDirectionLocation() { return uniformDirection; }
 
     void GetShaderUniformsInfo();
 
@@ -37,6 +39,7 @@ public:
 private:
     GLuint shaderID, uniformProjection, uniformModel, uniformView;
     GLuint uniformAmbientIntensity, uniformAmbientColour;
+    GLuint uniformDiffuseIntensity, uniformDirection;
 
     void CompileShader(const char *vertexCode, const char *fragmentCode);
     void AddShader(GLuint theProgram, const char *shaderCode, GLenum shaderType);

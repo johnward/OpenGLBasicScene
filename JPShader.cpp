@@ -139,6 +139,8 @@ void JPShader::CompileShader(const char *vertexCode, const char *fragmentCode)
     uniformProjection = glGetUniformLocation(shaderID, "projection");
     uniformAmbientColour = glGetUniformLocation(shaderID, "directionalLight.colour");
     uniformAmbientIntensity = glGetUniformLocation(shaderID, "directionalLight.ambientIntensity");
+    uniformDirection = glGetUniformLocation(shaderID, "directionalLight.direction");
+    uniformDiffuseIntensity = glGetUniformLocation(shaderID, "directionalLight.diffuseIntensity");
 }
 
 void JPShader::AddShader(GLuint theProgram, const char *shaderCode, GLenum shaderType)

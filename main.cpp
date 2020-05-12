@@ -29,7 +29,7 @@ GLfloat lastTime = 0.0f;
 
 Texture brinkTexture;
 Texture dirtyTexture;
-Texture brick2Texture;
+//Texture brick2Texture;
 
 Light mainLight;
 
@@ -41,6 +41,55 @@ static const char *vShader = "shaders/shader.vert";
 // Fragment Shader
 static const char *fShader = "shaders/shader.frag";
 
+void calcAverageNormals(unsigned int *indices,
+						unsigned int indiceCount,
+						GLfloat *vertices,
+						unsigned int verticesCount,
+						unsigned int vLength,
+						unsigned int normalOffset)
+{
+	for (size_t i = 0; i < indiceCount; i += 3)
+	{
+		unsigned int in0 = indices[i] * vLength;
+		unsigned int in1 = indices[i + 1] * vLength;
+		unsigned int in2 = indices[i + 2] * vLength;
+
+		glm::vec3 v1(vertices[in1] - vertices[in0],
+					 vertices[in1 + 1] - vertices[in0 + 1],
+					 vertices[in1 + 2] - vertices[in0 + 2]);
+
+		glm::vec3 v2(vertices[in2] - vertices[in0],
+					 vertices[in2 + 1] - vertices[in0 + 1],
+					 vertices[in2 + 2] - vertices[in0 + 2]);
+		glm::vec3 normal = glm::cross(v1, v2);
+		normal = glm::normalize(normal);
+
+		in0 += normalOffset;
+		in1 += normalOffset;
+		in2 += normalOffset;
+
+		vertices[in0] += normal.x;
+		vertices[in0 + 1] += normal.y;
+		vertices[in0 + 2] += normal.z;
+		vertices[in1] += normal.x;
+		vertices[in1 + 1] += normal.y;
+		vertices[in1 + 2] += normal.z;
+		vertices[in2] += normal.x;
+		vertices[in2 + 1] += normal.y;
+		vertices[in2 + 2] += normal.z;
+	}
+
+	for (size_t i = 0; i < verticesCount / vLength; i++)
+	{
+		unsigned int nOffset = i * vLength + normalOffset;
+		glm::vec3 vec(vertices[nOffset], vertices[nOffset + 1], vertices[nOffset + 2]);
+		vec = glm::normalize(vec);
+		vertices[nOffset] = vec.x;
+		vertices[nOffset + 1] = vec.y;
+		vertices[nOffset + 2] = vec.z;
+	}
+}
+
 void CreateObjects()
 {
 	unsigned int indices[] = {
@@ -50,11 +99,13 @@ void CreateObjects()
 		0, 1, 2}; // base
 
 	GLfloat vertices[] = {
-		//   x    y     z    u      v
-		-1.0f, -1.0f, 0.0f, 0.0f, 0.0f, // Bottom Left
-		0.0f, -1.0f, 1.0f, 1.0f, 0.0f,	// Bottom Back (Middle)
-		1.0f, -1.0f, 0.0f, 2.0f, 0.0f,	// Bottom Right
-		0.0f, 1.0f, 0.0f, 1.0f, 2.0f};	// Top
+		//   x    y     z    u      v   nx    ny    nz
+		-1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom Left
+		0.0f, -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,  // Bottom Back (Middle)
+		1.0f, -1.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f,  // Bottom Right
+		0.0f, 1.0f, 0.0f, 1.0f, 2.0f, 0.0f, 0.0f, 0.0f};  // Top
+
+	calcAverageNormals(indices, 12, vertices, 32, 8, 5);
 
 	Mesh *obj1 = new Mesh();
 	obj1->CreateMesh(vertices, indices, 20, 12);
@@ -84,14 +135,15 @@ void CreateCube()
 	};
 
 	GLfloat vertices[] = {
-		-1.0f, 1.0f, 0.0f, 0.0f, 1.0f,	// 0 Left Top Front
-		1.0f, 1.0f, 0.0f, 1.0f, 1.0f,	// 1 Right Top Front
-		-1.0f, -1.0f, 0.0f, 0.0f, 0.0f, // 2 Left Bottom Front
-		1.0f, -1.0f, 0.0f, 1.0f, 0.0f,	// 3 Right Bottom Front
-		-1.0f, 1.0f, 1.0f, 0.0f, 1.0f,	// 4 Left Top Back
-		1.0f, 1.0f, 1.0f, 1.0f, 1.0f,	// 5 Right Top Back
-		-1.0f, -1.0f, 1.0f, 0.0f, 0.0f, // 6 Left Bottom Back
-		1.0f, -1.0f, 1.0f, 1.0f, 0.0f}; // 7 Right Bottom Back*/
+		//  x    y     z    u      v   nx    ny    nz
+		-1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,  // 0 Left Top Front
+		1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f,	  // 1 Right Top Front
+		-1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, // 2 Left Bottom Front
+		1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,  // 3 Right Bottom Front
+		-1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,  // 4 Left Top Back
+		1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f,	  // 5 Right Top Back
+		-1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, // 6 Left Bottom Back
+		1.0f, -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f}; // 7 Right Bottom Back*/
 
 	Mesh *cube1 = new Mesh();
 	cube1->CreateMesh(vertices, indices, 40, 36);
@@ -121,18 +173,20 @@ int main()
 					 5.0f,
 					 0.5f);
 
-	brinkTexture = Texture((char *)"textures/brick_red.jpg");
+	brinkTexture = Texture((char *)"textures/bricks_001.png");
 	brinkTexture.LoadTexture();
 
-	dirtyTexture = Texture((char *)"textures/concrete_dirty.jpg");
+	dirtyTexture = Texture((char *)"textures/bricks_001.png");
 	dirtyTexture.LoadTexture();
 
-	brick2Texture = Texture((char *)"textures/wall.jpg");
-	brick2Texture.LoadTexture();
+	//brick2Texture = Texture((char *)"textures/wall.jpg");
+	//brick2Texture.LoadTexture();
 
 	dirtyTexture.UseTexture();
 
-	mainLight = Light(1.0f, 1.0f, 1.0f, 0.2f);
+	mainLight = Light(1.0f, 1.0f, 1.0f, 0.5f, // colour and intensity
+					  2.0f, -1.0f, -2.0f,	  // Position of light
+					  1.0f);				  // Intensity of light for diffuse
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0;
 
@@ -157,7 +211,8 @@ int main()
 
 		shaderList[0].UseShader();
 
-		mainLight.UseLight(shaderList[0].GetAmbientIntensityLocation(), shaderList[0].GetAmbientColourLocation());
+		mainLight.UseLight(shaderList[0].GetAmbientIntensityLocation(), shaderList[0].GetAmbientColourLocation(),
+						   shaderList[0].GetDiffuseIntensityLocation(), shaderList[0].GetDirectionLocation());
 
 		glUniformMatrix4fv(shaderList[0].GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projection));
 		//float projectionVal[16] = {0.0f};
