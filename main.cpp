@@ -146,7 +146,7 @@ void CreateCube()
 		1.0f, -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f}; // 7 Right Bottom Back*/
 
 	Mesh *cube1 = new Mesh();
-	cube1->CreateMesh(vertices, indices, 40, 36);
+	cube1->CreateMesh(vertices, indices, 64, 36);
 	meshList.push_back(cube1);
 }
 
