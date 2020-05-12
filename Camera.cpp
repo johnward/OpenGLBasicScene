@@ -2,60 +2,91 @@
 
 Camera::Camera()
 {
-    _deltaTime = 1.0f;
-    _lastFrame = 0.0f;
-    //_view = glm::mat4(1.0);
-    //_view = glm::lookAt(glm::vec3(0.0f, 0.0f, -3.0f),
-    //glm::vec3(0.0f, 0.0f, 0.0f),
-    //glm::vec3(0.0f, 1.0f, 0.0f));
-
-    _cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-    _cameraFront = glm::vec3(0.0f, 0.0f, -2.0f);
-    _cameraPos = glm::vec3(0.0f, 0.0f, -3.0f);
-    _view = glm::mat4(1.0f);
-    _view = glm::lookAt(_cameraPos, _cameraPos + _cameraFront, _cameraUp);
 }
 
-void Camera::calculateDeltaTime()
+Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMovementSpeed, GLfloat startTurnSpeed)
 {
-    float currentFrame = glfwGetTime();
-    _deltaTime = currentFrame - _lastFrame;
-    _lastFrame = currentFrame;
+    position = startPosition;
+    worldUp = startUp;
+    yaw = startYaw;
+    pitch = startPitch;
+    front = glm::vec3(0.0f, 0.0f, -1.0f);
+
+    moveSpeed = startMovementSpeed;
+    turnSpeed = startTurnSpeed;
+
+    deltaTime = 1.0f;
+    lastFrame = 0.0f;
+
+    update();
 }
 
-void Camera::ProcessCameraInput(GLFWwindow *window)
+void Camera::keyControl(bool *keys, GLfloat deltaTime)
 {
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
+    GLfloat velocity = moveSpeed * deltaTime;
 
-    if (_deltaTime == 0)
+    if (keys[GLFW_KEY_W])
     {
-        _deltaTime = 1;
+        position += front * velocity;
     }
 
-    float cameraSpeed = 2.5f * _deltaTime;
-
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+    if (keys[GLFW_KEY_S])
     {
-        _cameraPos += cameraSpeed * _cameraFront;
+        position -= front * velocity;
     }
 
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+    if (keys[GLFW_KEY_A])
     {
-        _cameraPos -= cameraSpeed * _cameraFront;
+        position -= right * velocity;
     }
 
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+    if (keys[GLFW_KEY_D])
     {
-        _cameraPos -= glm::normalize(glm::cross(_cameraFront, _cameraUp)) * cameraSpeed;
+        position += right * velocity;
+    }
+}
+
+void Camera::mouseControl(GLfloat xChange, GLfloat yChange)
+{
+    xChange *= turnSpeed;
+    yChange *= turnSpeed;
+
+    //printf("xChange: %.6f, yChange: %.6f\n", xChange, yChange);
+
+    yaw += xChange;
+    pitch += yChange;
+
+    //printf("Pitch: %.6f, Yaw: %.6f\n", pitch, yaw);
+
+    if (pitch > 89.0f) // pitch limit
+    {
+        pitch = 89.0f;
     }
 
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+    if (pitch < -89.0f)
     {
-        _cameraPos += glm::normalize(glm::cross(_cameraFront, _cameraUp)) * cameraSpeed;
+        pitch = -89.0f;
     }
 
-    _view = glm::lookAt(_cameraPos, _cameraPos + _cameraFront, _cameraUp);
+    update();
+}
+
+glm::mat4 Camera::calculateViewMatrix()
+{
+    return glm::lookAt(position,         // where we are looking at from, our position
+                       position + front, // Where the thing is that we are looking at
+                       up);              // Where up is in the world
+}
+
+void Camera::update()
+{
+    front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+    front.y = sin(pitch);
+    front.y = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+    front = glm::normalize(front); // remove magnitude
+
+    right = glm::normalize(glm::cross(front, worldUp));
+    up = glm::normalize(glm::cross(right, front)); //!try swapping these
 }
 
 Camera::~Camera()

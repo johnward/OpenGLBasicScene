@@ -13,7 +13,7 @@
 
 #include "JPShader.h"
 #include "GLWindow.h"
-#include "UCamera.h"
+#include "Camera.h"
 #include "Texture.h"
 #include "Light.h"
 
@@ -22,7 +22,7 @@ const float toRadians = 3.14159265f / 180.0f;
 std::vector<Mesh *> meshList;
 std::vector<JPShader> shaderList;
 GLWindow mainWindow;
-UCamera camera;
+Camera camera;
 
 GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
@@ -166,12 +166,12 @@ int main()
 	//CreateCube();
 	CreateShaders();
 
-	camera = UCamera(glm::vec3(0.0f, 2.0f, 0.0f),
-					 glm::vec3(0.0f, 1.0f, 0.0f),
-					 -90.0f,
-					 0.0f,
-					 5.0f,
-					 0.5f);
+	camera = Camera(glm::vec3(0.0f, 2.0f, 0.0f),
+					glm::vec3(0.0f, 1.0f, 0.0f),
+					-90.0f,
+					0.0f,
+					5.0f,
+					0.5f);
 
 	brinkTexture = Texture((char *)"textures/brick.png");
 	brinkTexture.LoadTexture();

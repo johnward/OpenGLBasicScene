@@ -13,7 +13,7 @@
                 "${workspaceFolder}/Mesh.cpp",
                 "${workspaceFolder}/JPShader.cpp",
                 "${workspaceFolder}/GLWindow.cpp",
-                "${workspaceFolder}/UCamera.cpp",
+                "${workspaceFolder}/Camera.cpp",
                 "${workspaceFolder}/Texture.cpp",
                 "${workspaceFolder}/Light.cpp",
                 "-o",
