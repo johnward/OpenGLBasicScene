@@ -108,11 +108,11 @@ void CreateObjects()
 	calcAverageNormals(indices, 12, vertices, 32, 8, 5);
 
 	Mesh *obj1 = new Mesh();
-	obj1->CreateMesh(vertices, indices, 20, 12);
+	obj1->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj1);
 
 	Mesh *obj2 = new Mesh();
-	obj2->CreateMesh(vertices, indices, 20, 12);
+	obj2->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj2);
 }
 
@@ -173,10 +173,10 @@ int main()
 					 5.0f,
 					 0.5f);
 
-	brinkTexture = Texture((char *)"textures/bricks_001.png");
+	brinkTexture = Texture((char *)"textures/brick.png");
 	brinkTexture.LoadTexture();
 
-	dirtyTexture = Texture((char *)"textures/bricks_001.png");
+	dirtyTexture = Texture((char *)"textures/dirt.png");
 	dirtyTexture.LoadTexture();
 
 	//brick2Texture = Texture((char *)"textures/wall.jpg");
@@ -184,7 +184,7 @@ int main()
 
 	dirtyTexture.UseTexture();
 
-	mainLight = Light(1.0f, 1.0f, 1.0f, 0.5f, // colour and intensity
+	mainLight = Light(1.0f, 1.0f, 1.0f, 0.2f, // colour and intensity
 					  2.0f, -1.0f, -2.0f,	  // Position of light
 					  1.0f);				  // Intensity of light for diffuse
 
