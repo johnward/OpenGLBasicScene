@@ -1,9 +1,9 @@
-#include "JPShader.h"
+#include "Shader.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-JPShader::JPShader()
+Shader::Shader()
 {
     shaderID = 0;
     uniformModel = 0;
@@ -12,12 +12,12 @@ JPShader::JPShader()
     uniformAmbientIntensity = 0;
 }
 
-void JPShader::CreateFromString(const char *vertexCode, const char *fragmentCode)
+void Shader::CreateFromString(const char *vertexCode, const char *fragmentCode)
 {
     CompileShader(vertexCode, fragmentCode);
 }
 
-void JPShader::CreateFromFiles(const char *vertexLocation, const char *fragmentLocation)
+void Shader::CreateFromFiles(const char *vertexLocation, const char *fragmentLocation)
 {
     std::string vertexString = ReadFile(vertexLocation);
     std::string fragmentString = ReadFile(fragmentLocation);
@@ -51,12 +51,12 @@ std::string JPShader::ReadFile(const char *fileLocation)
     return content;
 }
 
-void JPShader::UseShader()
+void Shader::UseShader()
 {
     glUseProgram(shaderID);
 }
 
-void JPShader::GetShaderUniformsInfo()
+void Shader::GetShaderUniformsInfo()
 {
     //glGetProgramInterface
     GLint uniformsNum = 0;
@@ -87,7 +87,7 @@ void JPShader::GetShaderUniformsInfo()
     }
 }
 
-void JPShader::ClearShader()
+void Shader::ClearShader()
 {
     if (shaderID != 0)
     {
@@ -99,7 +99,7 @@ void JPShader::ClearShader()
     uniformProjection = 0;
 }
 
-void JPShader::CompileShader(const char *vertexCode, const char *fragmentCode)
+void Shader::CompileShader(const char *vertexCode, const char *fragmentCode)
 {
     shaderID = glCreateProgram();
 
@@ -143,7 +143,7 @@ void JPShader::CompileShader(const char *vertexCode, const char *fragmentCode)
     uniformDiffuseIntensity = glGetUniformLocation(shaderID, "directionalLight.diffuseIntensity");
 }
 
-void JPShader::AddShader(GLuint theProgram, const char *shaderCode, GLenum shaderType)
+void Shader::AddShader(GLuint theProgram, const char *shaderCode, GLenum shaderType)
 {
     GLuint theShader = glCreateShader(shaderType);
 
@@ -170,7 +170,7 @@ void JPShader::AddShader(GLuint theProgram, const char *shaderCode, GLenum shade
     glAttachShader(theProgram, theShader);
 }
 
-JPShader::~JPShader()
+Shader::~Shader()
 {
     ClearShader();
 }

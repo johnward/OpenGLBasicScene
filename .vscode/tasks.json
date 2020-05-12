@@ -11,7 +11,7 @@
                 "-g",
                 "${workspaceFolder}/main.cpp",
                 "${workspaceFolder}/Mesh.cpp",
-                "${workspaceFolder}/JPShader.cpp",
+                "${workspaceFolder}/Shader.cpp",
                 "${workspaceFolder}/GLWindow.cpp",
                 "${workspaceFolder}/Camera.cpp",
                 "${workspaceFolder}/Texture.cpp",
