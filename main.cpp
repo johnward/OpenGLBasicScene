@@ -11,7 +11,7 @@
 #include <vector>
 #include "Mesh.h"
 
-#include "JPShader.h"
+#include "Shader.h"
 #include "GLWindow.h"
 #include "Camera.h"
 #include "Texture.h"
@@ -20,7 +20,7 @@
 const float toRadians = 3.14159265f / 180.0f;
 
 std::vector<Mesh *> meshList;
-std::vector<JPShader> shaderList;
+std::vector<Shader> shaderList;
 GLWindow mainWindow;
 Camera camera;
 
@@ -152,7 +152,7 @@ void CreateCube()
 
 void CreateShaders()
 {
-	JPShader *shader1 = new JPShader();
+	Shader *shader1 = new Shader();
 	shader1->CreateFromFiles(vShader, fShader);
 	shaderList.push_back(*shader1);
 }

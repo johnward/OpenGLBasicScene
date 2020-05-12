@@ -1,7 +1,4 @@
 #include "Shader.h"
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 Shader::Shader()
 {
@@ -27,7 +24,7 @@ void Shader::CreateFromFiles(const char *vertexLocation, const char *fragmentLoc
     CompileShader(vertexCode, fragmentCode);
 }
 
-std::string JPShader::ReadFile(const char *fileLocation)
+std::string Shader::ReadFile(const char *fileLocation)
 {
     std::string content;
     std::ifstream fileStream(fileLocation, std::ios::in);

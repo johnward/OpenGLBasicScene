@@ -1,5 +1,5 @@
-#ifndef JPSHADER_H
-#define JPSHADER_H
+#ifndef SHADER_H
+#define SHADER_H
 
 #include <iostream>
 #include <fstream>
@@ -8,11 +8,14 @@
 #include <string.h>
 #include <cmath>
 #include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
-class JPShader
+class Shader
 {
 public:
-    JPShader();
+    Shader();
 
     void CreateFromString(const char *vertexCode, const char *fragmentCode);
 
@@ -34,7 +37,7 @@ public:
     void UseShader();
     void ClearShader();
 
-    ~JPShader();
+    ~Shader();
 
 private:
     GLuint shaderID, uniformProjection, uniformModel, uniformView;
