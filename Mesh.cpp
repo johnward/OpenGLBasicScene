@@ -5,6 +5,7 @@ Mesh::Mesh()
     VAO = 0;
     VBO = 0;
     IBO = 0;
+    indexCount = 0;
 }
 
 void Mesh::CreateMesh(GLfloat *vertices, unsigned int *indices, unsigned int numOfVertices, unsigned int numOfIndices)
@@ -25,10 +26,10 @@ void Mesh::CreateMesh(GLfloat *vertices, unsigned int *indices, unsigned int num
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertices[0]) * 8, 0);
     glEnableVertexAttribArray(0); // Can be enabled with Render
 
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertices[0]) * 8, (void *)sizeof(vertices[0] * 3)); // Last value is the offset from the begining
-    glEnableVertexAttribArray(1);                                                                              // Can be enabled with Render
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertices[0]) * 8, (void *)(sizeof(vertices[0]) * 3)); // Last value is the offset from the begining
+    glEnableVertexAttribArray(1);                                                                                // Can be enabled with Render
 
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(vertices[0]) * 8, (void *)sizeof(vertices[0] * 5)); // Last value is the offset from the begining
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(vertices[0]) * 8, (void *)(sizeof(vertices[0]) * 5)); // Last value is the offset from the begining
     glEnableVertexAttribArray(2);
 
     // Unbind above
