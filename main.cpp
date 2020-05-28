@@ -160,13 +160,13 @@ void CreateShaders()
 int main()
 {
 	mainWindow = GLWindow(800, 600);
-	mainWindow.initialise();
+	mainWindow.Initialise();
 
 	CreateObjects();
 	//CreateCube();
 	CreateShaders();
 
-	camera = Camera(glm::vec3(0.0f, 2.0f, 0.0f),
+	camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f),
 					glm::vec3(0.0f, 1.0f, 0.0f),
 					-90.0f,
 					0.0f,
@@ -206,7 +206,7 @@ int main()
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		camera.keyControl(mainWindow.getKeys(), deltaTime);
+		camera.keyControl(mainWindow.getsKeys(), deltaTime);
 		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
 
 		shaderList[0].UseShader();

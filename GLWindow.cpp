@@ -30,7 +30,7 @@ GLWindow::GLWindow(GLint windowWidth, GLint windowHeight)
     }
 }
 
-int GLWindow::initialise()
+int GLWindow::Initialise()
 {
     if (!glfwInit())
     {

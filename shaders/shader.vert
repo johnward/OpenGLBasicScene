@@ -6,6 +6,7 @@ layout (location = 2) in vec3 norm;
                 									
 out vec4 vCol;										
 out vec2 TexCoord;
+//flat out vec3 Normal;
 out vec3 Normal;
 
 uniform mat4 view;							

@@ -11,14 +11,14 @@ public:
     GLWindow();
     GLWindow(GLint windowWidth, GLint windowHeight);
 
-    int initialise();
+    int Initialise();
 
     GLfloat getBufferWidth() { return bufferWidth; }
     GLfloat getBufferHeight() { return bufferHeight; }
 
     bool getShouldClose() { return glfwWindowShouldClose(mainWindow); }
 
-    bool *getKeys() { return keys; }
+    bool *getsKeys() { return keys; }
 
     GLfloat getXChange();
     GLfloat getYChange();

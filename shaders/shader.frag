@@ -2,6 +2,7 @@
                                                 	
 in vec4 vCol;
 in vec2 TexCoord;		
+// flat in vec3 Normal; // does do interletation
 in vec3 Normal;								
                                                   	
 out vec4 colour;	
@@ -22,6 +23,8 @@ void main()
     vec4 ambientColour = vec4(directionalLight.colour, 1.0f) * directionalLight.ambientIntensity;
 
     float diffuseFactor = max(dot(normalize(Normal), normalize(directionalLight.direction)), 0.0f);
+    
+    // This is how much light we need to add, like ambient colour taking into account the diffuse factor
     vec4 diffuseColour = vec4(directionalLight.colour, 1.0f) * directionalLight.diffuseIntensity * diffuseFactor;
 
 	colour = texture(theTexture, TexCoord) * (ambientColour + diffuseColour);								                                                  	
