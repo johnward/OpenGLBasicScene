@@ -229,7 +229,7 @@ int main()
 		//float viewVal[16] = {0.0f};
 		//glGetUniformfv(shaderList[0].GetShaderID(), shaderList[0].GetViewLocation(), viewVal);
 
-		glUniformMatrix4fv(shaderList[0].GetEyePosition(), 1, GL_FALSE, glm::value_ptr(camera.getCameraPosition()));
+		glUniformMatrix4fv(shaderList[0].GetEyePositionLocation(), 1, GL_FALSE, glm::value_ptr(camera.getCameraPosition()));
 
 		glm::mat4 model(1.0f);
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.5f));
