@@ -8,6 +8,7 @@ out vec4 vCol;
 out vec2 TexCoord;
 //flat out vec3 Normal;
 out vec3 Normal;
+out vec3 FragPos;
 
 uniform mat4 view;							
 uniform mat4 model;	
@@ -20,4 +21,6 @@ void main()
 	TexCoord = tex;				
 
 	Normal = mat3(transpose(inverse(model))) * norm;
+
+	FragPos = (model * vec4(pos, 1.0)).xyz; //swizzling
 }

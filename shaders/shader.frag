@@ -3,7 +3,8 @@
 in vec4 vCol;
 in vec2 TexCoord;		
 // flat in vec3 Normal; // does do interletation
-in vec3 Normal;								
+in vec3 Normal;			
+in vec3 FragPos;					
                                                   	
 out vec4 colour;	
 
@@ -15,8 +16,17 @@ struct DirectionalLight
     float diffuseIntensity;
 };
 
+struct Material
+{
+    float specularIntensity;
+    float shininess;
+};
+
 uniform sampler2D theTexture;
 uniform DirectionalLight directionalLight;
+uniform Material material;
+
+uniform vec3 eyePosition; // camera
                                                   	
 void main()											
 {				
@@ -27,5 +37,20 @@ void main()
     // This is how much light we need to add, like ambient colour taking into account the diffuse factor
     vec4 diffuseColour = vec4(directionalLight.colour, 1.0f) * directionalLight.diffuseIntensity * diffuseFactor;
 
-	colour = texture(theTexture, TexCoord) * (ambientColour + diffuseColour);								                                                  	
+    vec4 specularColour = vec4(0,0,0,0);
+
+    if(diffuseFactor > 0.0f)
+    {
+        vec3 fragToEye = normalize(eyePosition - FragPos);
+        vec3 reflectedVertex = normalize(reflect(directionalLight.direction, normalize(Normal)));
+        float specularFactor dot(fragToEye, reflectedVertex);
+
+        if (specularFactor > 0.0f)
+        {
+            specularFactor = pow(specularFactor, material.shininess);
+            specularColour = vec4(directionalLight.colour * material.specularIntensity * specularFactor);
+        }
+    }
+
+	colour = texture(theTexture, TexCoord) * (ambientColour + diffuseColour + specularColour);								                                                  	
 }

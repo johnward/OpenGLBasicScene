@@ -16,6 +16,7 @@
 #include "Camera.h"
 #include "Texture.h"
 #include "Light.h"
+#include "Material.h"
 
 const float toRadians = 3.14159265f / 180.0f;
 
@@ -23,6 +24,9 @@ std::vector<Mesh *> meshList;
 std::vector<Shader> shaderList;
 GLWindow mainWindow;
 Camera camera;
+
+Material shinyMaterial;
+Material dullMaterial;
 
 GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
@@ -179,6 +183,9 @@ int main()
 	dirtyTexture = Texture((char *)"textures/dirt.png");
 	dirtyTexture.LoadTexture();
 
+	shinyMaterial = Material(1.0f, 32);
+	dullMaterial = Material(0.3f, 4);
+
 	//brick2Texture = Texture((char *)"textures/wall.jpg");
 	//brick2Texture.LoadTexture();
 
@@ -221,6 +228,8 @@ int main()
 		glUniformMatrix4fv(shaderList[0].GetViewLocation(), 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 		//float viewVal[16] = {0.0f};
 		//glGetUniformfv(shaderList[0].GetShaderID(), shaderList[0].GetViewLocation(), viewVal);
+
+		glUniformMatrix4fv(shaderList[0].GetEyePosition(), 1, GL_FALSE, glm::value_ptr(camera.getCameraPosition()));
 
 		glm::mat4 model(1.0f);
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.5f));
