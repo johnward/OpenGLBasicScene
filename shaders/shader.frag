@@ -43,12 +43,12 @@ void main()
     {
         vec3 fragToEye = normalize(eyePosition - FragPos);
         vec3 reflectedVertex = normalize(reflect(directionalLight.direction, normalize(Normal)));
-        float specularFactor dot(fragToEye, reflectedVertex);
+        float specularFactor = dot(fragToEye, reflectedVertex);
 
         if (specularFactor > 0.0f)
         {
             specularFactor = pow(specularFactor, material.shininess);
-            specularColour = vec4(directionalLight.colour * material.specularIntensity * specularFactor);
+            specularColour = vec4(directionalLight.colour * material.specularIntensity * specularFactor, 1.0f);
         }
     }
 

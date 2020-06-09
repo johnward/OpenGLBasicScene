@@ -26,7 +26,7 @@ public:
     GLuint GetProjectionLocation() { return uniformProjection; }
     GLuint GetModelLocation() { return uniformModel; }
     GLuint GetViewLocation() { return uniformView; }
-    GLuint GetEyePosition() { return uniformEyePosition; }
+    GLuint GetEyePositionLocation() { return uniformEyePosition; }
     GLuint GetShaderID() { return shaderID; }
     GLuint GetAmbientIntensityLocation() { return uniformAmbientIntensity; }
     GLuint GetAmbientColourLocation() { return uniformAmbientColour; }

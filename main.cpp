@@ -104,10 +104,17 @@ void CreateObjects()
 
 	GLfloat vertices[] = {
 		//   x    y     z    u      v   nx    ny    nz
-		-1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom Left
-		0.0f, -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,  // Bottom Back (Middle)
-		1.0f, -1.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f,  // Bottom Right
-		0.0f, 1.0f, 0.0f, 1.0f, 2.0f, 0.0f, 0.0f, 0.0f};  // Top
+		-1.0f, -1.0f, -0.6f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom Left
+		0.0f, -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,   // Bottom Back (Middle)
+		1.0f, -1.0f, -0.6f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f,  // Bottom Right
+		0.0f, 1.0f, 0.0f, 1.0f, 2.0f, 0.0f, 0.0f, 0.0f};   // Top
+
+	// GLfloat vertices[] = {
+	// 	//   x    y     z    u      v     nx    ny    nz
+	// 	-1.0f, -1.0f, -0.6f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom Left
+	// 	0.0f, -1.0f, 1.0f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f,   // Bottom Back (Middle)
+	// 	1.0f, 1.0f, -0.6f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,   // Bottom Right
+	// 	0.0f, 1.0f, 0.0f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f};   // Top
 
 	calcAverageNormals(indices, 12, vertices, 32, 8, 5);
 
@@ -163,7 +170,7 @@ void CreateShaders()
 
 int main()
 {
-	mainWindow = GLWindow(800, 600);
+	mainWindow = GLWindow(1366, 768);
 	mainWindow.Initialise();
 
 	CreateObjects();
@@ -193,7 +200,7 @@ int main()
 
 	mainLight = Light(1.0f, 1.0f, 1.0f, 0.2f, // colour and intensity
 					  2.0f, -1.0f, -2.0f,	  // Position of light
-					  1.0f);				  // Intensity of light for diffuse
+					  0.3f);				  // Intensity of light for diffuse
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0;
 
@@ -224,30 +231,30 @@ int main()
 		glUniformMatrix4fv(shaderList[0].GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projection));
 		//float projectionVal[16] = {0.0f};
 		//glGetUniformfv(shaderList[0].GetShaderID(), shaderList[0].GetProjectionLocation(), projectionVal);
-
 		glUniformMatrix4fv(shaderList[0].GetViewLocation(), 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 		//float viewVal[16] = {0.0f};
 		//glGetUniformfv(shaderList[0].GetShaderID(), shaderList[0].GetViewLocation(), viewVal);
-
-		glUniformMatrix4fv(shaderList[0].GetEyePositionLocation(), 1, GL_FALSE, glm::value_ptr(camera.getCameraPosition()));
+		glUniform3f(shaderList[0].GetEyePositionLocation(), camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
 
 		glm::mat4 model(1.0f);
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.5f));
-		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
+		//model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
 
 		glUniformMatrix4fv(uniformModel = shaderList[0].GetModelLocation(), 1, GL_FALSE, glm::value_ptr(model));
 		//float modelVal[16] = {0.0f};
 		//glGetUniformfv(shaderList[0].GetShaderID(), shaderList[0].GetModelLocation(), modelVal);
 
 		brinkTexture.UseTexture();
+		shinyMaterial.UseMaterial(shaderList[0].GetSpecularIntensityLocation(), shaderList[0].GetShininess());
 		meshList[0]->RenderMesh();
 
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(0.0f, 1.0f, -2.5f));
-		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 4.0f, -2.5f));
+		//model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 
 		dirtyTexture.UseTexture();
+		dullMaterial.UseMaterial(shaderList[0].GetSpecularIntensityLocation(), shaderList[0].GetShininess());
 		meshList[1]->RenderMesh();
 
 		// model = glm::mat4(1.0f);
