@@ -15,7 +15,7 @@
 #include "GLWindow.h"
 #include "Camera.h"
 #include "Texture.h"
-#include "Light.h"
+#include "DirectionalLight.h"
 #include "Material.h"
 
 const float toRadians = 3.14159265f / 180.0f;
@@ -35,7 +35,7 @@ Texture brinkTexture;
 Texture dirtyTexture;
 //Texture brick2Texture;
 
-Light mainLight;
+DirectionalLight mainLight;
 
 void FramebufferResize(GLFWwindow *window, float height, float width);
 
@@ -198,9 +198,9 @@ int main()
 
 	dirtyTexture.UseTexture();
 
-	mainLight = Light(1.0f, 1.0f, 1.0f, 0.2f, // colour and intensity
-					  2.0f, -1.0f, -2.0f,	  // Position of light
-					  0.3f);				  // Intensity of light for diffuse
+	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,	 // colour and
+								 0.1f, 0.3f,		 // intensity and Intensity of light for diffuse
+								 0.0f, 0.0f, -1.0f); // Position of light
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0;
 

@@ -16,6 +16,7 @@
                 "${workspaceFolder}/Camera.cpp",
                 "${workspaceFolder}/Texture.cpp",
                 "${workspaceFolder}/Light.cpp",
+                "${workspaceFolder}/DirectionalLight.cpp",
                 "${workspaceFolder}/Material.cpp",
                 "-o",
                 "${fileDirname}/main.exe",
