@@ -2,7 +2,7 @@
 
 DirectionalLight::DirectionalLight() : Light()
 {
-    direction = glm::vec3(0.0f, -1.0, 0.0f);
+    direction = glm::vec3(0.0f, -1.0f, 0.0f);
 }
 
 DirectionalLight::DirectionalLight(GLfloat red, GLfloat green, GLfloat blue,

@@ -225,8 +225,7 @@ int main()
 
 		shaderList[0].UseShader();
 
-		mainLight.UseLight(shaderList[0].GetAmbientIntensityLocation(), shaderList[0].GetAmbientColourLocation(),
-						   shaderList[0].GetDiffuseIntensityLocation(), shaderList[0].GetDirectionLocation());
+		shaderList[0].SetDirectionalLight(&mainLight);
 
 		glUniformMatrix4fv(shaderList[0].GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projection));
 		//float projectionVal[16] = {0.0f};
