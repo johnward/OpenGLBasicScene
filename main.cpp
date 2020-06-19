@@ -210,7 +210,7 @@ int main()
 	dirtyTexture = Texture((char *)"textures/dirt.png");
 	dirtyTexture.LoadTexture();
 
-	plainTexture = Texture((char *)"textures/plain.png)");
+	plainTexture = Texture((char *)"textures/plain.png");
 	plainTexture.LoadTexture();
 
 	shinyMaterial = Material(4.0f, 256);
