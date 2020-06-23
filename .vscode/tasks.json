@@ -18,6 +18,7 @@
                 "${workspaceFolder}/Light.cpp",
                 "${workspaceFolder}/DirectionalLight.cpp",
                 "${workspaceFolder}/PointLight.cpp",
+                "${workspaceFolder}/SpotLight.cpp",
                 "${workspaceFolder}/Material.cpp",
                 "-o",
                 "${fileDirname}/main.exe",
