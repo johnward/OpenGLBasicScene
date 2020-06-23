@@ -224,7 +224,7 @@ int main()
 	dirtyTexture.UseTexture();
 
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,	 // colour and
-								 0.3f, 0.4f,		 // Ambient intensity and Intensity of light for diffuse
+								 0.1f, 0.1f,		 // 0.3, 0.4 Ambient intensity and Intensity of light for diffuse
 								 0.0f, 0.0f, -1.0f); // Position of light
 
 	unsigned int pointLightCount = 0;
@@ -234,22 +234,31 @@ int main()
 								4.0f, 0.0f, 0.0f,
 								0.3f, 0.2f, 0.1f);
 
-	pointLightCount++;
+	//pointLightCount++;
 
 	pointLights[1] = PointLight(0.0f, 1.0f, 0.0f,
 								0.3f, 0.1f,
 								-4.0f, 2.0f, 0.0f,
 								0.3f, 0.1f, 0.1f);
 
-	pointLightCount++;
+	//pointLightCount++;
 
 	unsigned int spotLightCount = 0;
 
-	spotLights[0] = SpotLight(0.0f, 0.0f, 1.0f,
-							  0.3f, 1.0f,
-							  4.0f, 0.0f, 0.0f,
+	spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
+							  0.0f, 2.0f,
+							  1.0f, 0.0f, 0.0f,
 							  0.0f, -1.0f, 0.0f,
-							  0.3f, 0.2f, 0.1f,
+							  1.0f, 0.0f, 0.0f,
+							  20.0f);
+
+	spotLightCount++;
+
+	spotLights[1] = SpotLight(1.0f, 1.0f, 1.0f,
+							  0.0f, 1.0f,
+							  0.0f, -1.5f, 0.0f,
+							  -100.0f, -1.0f, 0.0f,
+							  1.0f, 0.0f, 0.0f,
 							  20.0f);
 
 	spotLightCount++;
@@ -276,6 +285,10 @@ int main()
 		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
 
 		shaderList[0].UseShader();
+
+		glm::vec3 lowerLight = camera.getCameraPosition();
+		lowerLight.y -= 0.3f; // More realistic position of flash light (or say a game)
+		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
 
 		shaderList[0].SetDirectionalLight(&mainLight);
 		shaderList[0].SetPointLights(pointLights, pointLightCount);
@@ -315,7 +328,7 @@ int main()
 		//model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 
-		plainTexture.UseTexture();
+		dirtyTexture.UseTexture();
 		shinyMaterial.UseMaterial(shaderList[0].GetSpecularIntensityLocation(), shaderList[0].GetShininess());
 		meshList[2]->RenderMesh();
 

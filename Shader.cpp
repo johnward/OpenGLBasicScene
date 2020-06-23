@@ -82,9 +82,9 @@ void Shader::SetPointLights(PointLight *pLight, unsigned int lightCount)
 
 void Shader::SetSpotLights(SpotLight *sLight, unsigned int lightCount)
 {
-    if (lightCount > MAX_POINT_LIGHTS)
+    if (lightCount > MAX_SPOT_LIGHTS)
     {
-        lightCount = MAX_POINT_LIGHTS;
+        lightCount = MAX_SPOT_LIGHTS;
     }
 
     glUniform1i(uniformSpotLightCount, lightCount); // int!
