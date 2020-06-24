@@ -11,15 +11,15 @@
 #include <vector>
 
 #include "CommonValues.h"
-#include "Mesh.h"
-#include "Shader.h"
-#include "GLWindow.h"
-#include "Camera.h"
-#include "Texture.h"
-#include "DirectionalLight.h"
-#include "PointLight.h"
-#include "SpotLight.h"
-#include "Material.h"
+#include "common/Mesh.h"
+#include "common/Shader.h"
+#include "common/GLWindow.h"
+#include "common/Camera.h"
+#include "common/Texture.h"
+#include "common/DirectionalLight.h"
+#include "common/PointLight.h"
+#include "common/SpotLight.h"
+#include "common/Material.h"
 
 const float toRadians = 3.14159265f / 180.0f;
 
