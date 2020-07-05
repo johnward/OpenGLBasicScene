@@ -20,6 +20,9 @@
 #include "common/PointLight.h"
 #include "common/SpotLight.h"
 #include "common/Material.h"
+#include "common/Model.h"
+
+#include <assimp/Importer.hpp>
 
 const float toRadians = 3.14159265f / 180.0f;
 
@@ -30,6 +33,9 @@ Camera camera;
 
 Material shinyMaterial;
 Material dullMaterial;
+
+Model xwing;
+Model enterprise;
 
 GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
@@ -207,16 +213,22 @@ int main()
 					0.5f);
 
 	brinkTexture = Texture((char *)"textures/brick.png");
-	brinkTexture.LoadTexture();
+	brinkTexture.LoadTextureA();
 
 	dirtyTexture = Texture((char *)"textures/dirt.png");
-	dirtyTexture.LoadTexture();
+	dirtyTexture.LoadTextureA();
 
 	plainTexture = Texture((char *)"textures/plain.png");
-	plainTexture.LoadTexture();
+	plainTexture.LoadTextureA();
 
 	shinyMaterial = Material(4.0f, 256);
 	dullMaterial = Material(0.3f, 4);
+
+	xwing = Model();
+	xwing.LoadModel("models/star wars x-wing.obj");
+
+	enterprise = Model();
+	enterprise.LoadModel("models/enterprise1701d.obj");
 
 	//brick2Texture = Texture((char *)"textures/wall.jpg");
 	//brick2Texture.LoadTexture();
@@ -224,7 +236,7 @@ int main()
 	dirtyTexture.UseTexture();
 
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,	 // colour and
-								 0.1f, 0.1f,		 // 0.3, 0.4 Ambient intensity and Intensity of light for diffuse
+								 0.3f, 0.6f,		 // 0.3, 0.4 Ambient intensity and Intensity of light for diffuse
 								 0.0f, 0.0f, -1.0f); // Position of light
 
 	unsigned int pointLightCount = 0;
@@ -234,14 +246,14 @@ int main()
 								4.0f, 0.0f, 0.0f,
 								0.3f, 0.2f, 0.1f);
 
-	//pointLightCount++;
+	pointLightCount++;
 
 	pointLights[1] = PointLight(0.0f, 1.0f, 0.0f,
 								0.3f, 0.1f,
 								-4.0f, 2.0f, 0.0f,
 								0.3f, 0.1f, 0.1f);
 
-	//pointLightCount++;
+	pointLightCount++;
 
 	unsigned int spotLightCount = 0;
 
@@ -288,7 +300,7 @@ int main()
 
 		glm::vec3 lowerLight = camera.getCameraPosition();
 		lowerLight.y -= 0.3f; // More realistic position of flash light (or say a game)
-		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
+		//spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
 
 		shaderList[0].SetDirectionalLight(&mainLight);
 		shaderList[0].SetPointLights(pointLights, pointLightCount);
@@ -331,6 +343,20 @@ int main()
 		dirtyTexture.UseTexture();
 		shinyMaterial.UseMaterial(shaderList[0].GetSpecularIntensityLocation(), shaderList[0].GetShininess());
 		meshList[2]->RenderMesh();
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-1.0f, -2.0f, -2.5f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		shinyMaterial.UseMaterial(shaderList[0].GetSpecularIntensityLocation(), shaderList[0].GetShininess());
+		xwing.RenderModel();
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-2.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		shinyMaterial.UseMaterial(shaderList[0].GetSpecularIntensityLocation(), shaderList[0].GetShininess());
+		enterprise.RenderModel();
 
 		// model = glm::mat4(1.0f);
 		// model = glm::translate(model, glm::vec3(0.0f, 0.0f, -7.5f));

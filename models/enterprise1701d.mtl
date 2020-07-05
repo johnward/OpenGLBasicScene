@@ -1,0 +1,488 @@
+# Blender MTL File: 'untitled131.blend'
+# Material Count: 44
+newmtl _gxcol4.jpg
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd gxcol4.jpg
+
+
+newmtl _gxcol5.jpg
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd gxcol5.jpg
+
+
+newmtl gxfront2_gxfront2.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 0
+map_Kd gxfront2.jpg
+map_Ka gxfront2.jpg
+
+
+newmtl gxlight1_gxlight1.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 0
+map_Kd gxlight1.jpg
+map_Ka gxlight1.jpg
+
+
+newmtl gxmain
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+
+
+newmtl gxmain_gxbottom.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxbottom.jpg
+
+
+newmtl gxmain_gxbottom1.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxbottom1.jpg
+
+
+newmtl gxmain_gxbottom3.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxbottom3.jpg
+
+
+newmtl gxmain_gxbottom4.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxbottom4.jpg
+
+
+newmtl gxmain_gxbottom5.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxbottom5.jpg
+
+
+newmtl gxmain_gxbottom6.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxbottom6.jpg
+
+
+newmtl gxmain_gxbottom7.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxbottom7.jpg
+
+
+newmtl gxmain_gxcircle.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxcircle.jpg
+
+
+newmtl gxmain_gxcol0.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxcol0.jpg
+
+
+newmtl gxmain_gxcol1.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxcol1.jpg
+
+
+newmtl gxmain_gxcol2.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxcol2.jpg
+
+
+newmtl gxmain_gxcol3.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxcol3.jpg
+
+
+newmtl gxmain_gxcol4.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxcol4.jpg
+
+
+newmtl gxmain_gxcol5.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxcol5.jpg
+
+
+newmtl gxmain_gxfront1.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxfront1.jpg
+
+
+newmtl gxmain_gxlines.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxlines.jpg
+
+
+newmtl gxmain_gxoblo.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxoblo.jpg
+
+
+newmtl gxmain_gxred.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxred.jpg
+
+
+newmtl gxmain_gxtop.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxtop.jpg
+
+
+newmtl gxmain_gxtop1.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxtop1.jpg
+
+
+newmtl gxmain_gxtop10.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxtop10.jpg
+
+
+newmtl gxmain_gxtop10_1.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxtop10_1.jpg
+
+
+newmtl gxmain_gxtop13.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxtop13.jpg
+
+
+newmtl gxmain_gxtop14.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxtop14.jpg
+
+
+newmtl gxmain_gxtop1_1.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxtop1_1.jpg
+
+
+newmtl gxmain_gxtop2.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxtop2.jpg
+
+
+newmtl gxmain_gxtop3
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxtop3.jpg
+
+
+newmtl gxmain_gxtop4
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxtop4.jpg
+
+
+newmtl gxmain_gxtop5
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxtop5.jpg
+
+
+newmtl gxmain_gxtop6
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxtop6.jpg
+
+
+newmtl gxmain_gxtop7.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxtop7.jpg
+
+
+newmtl gxmain_gxtop8.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxtop8.jpg
+
+
+newmtl gxmain_gxtop8_0.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxtop8_0.jpg
+
+
+newmtl gxmain_gxtop9.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxtop9.jpg
+
+
+newmtl gxmain_gxwhite.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxwhite.jpg
+
+
+newmtl gxmain_gxyellow.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.527059 0.527059 0.527059
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd gxyellow.jpg
+
+
+newmtl gxtop12_gxtop12
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 0
+map_Kd gxtop12.jpg
+map_Ka gxtop12.jpg
+
+
+newmtl gxwhite_gxwhite.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 0
+map_Kd gxwhite.jpg
+map_Ka gxwhite.jpg
+
+
+newmtl gxyellow_gxyellow.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 0
+map_Kd gxyellow.jpg
+map_Ka gxyellow.jpg
+
+
