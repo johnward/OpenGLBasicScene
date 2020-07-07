@@ -8,7 +8,7 @@ This covered in this repo are the following:
 * Uniform Variables
 * GLM
 * Identity Matrices
-* Transforming: Trsnalation, Rotation and Scaling
+* Transforming: Translation, Rotation and Scaling
 * Interpolation 
 * Indexed Draws
 * Projections
