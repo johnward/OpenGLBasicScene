@@ -20,4 +20,4 @@ This project has been used for me to get back up to speed with OpenGL / Graphics
 ## Here is a screen shot of the scene:
 ![alt text][logo]
 
-[logo]: https://github.com/johnward/OpenGLBasicScene.png "OpenGL Basic Scene Screenshot"
+[logo]: https://github.com/johnward/OpenGLBasicScene/OpenGLBasicScene.png "OpenGL Basic Scene Screenshot"
