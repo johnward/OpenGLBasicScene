@@ -1,4 +1,4 @@
-# OpenGL Basics
+# OpenGL Basic Scene
 
 This project has been used for me to get back up to speed with OpenGL / Graphics programming, as I have 20+ years C++ and have a few years graphics device driver / OpenGL (originally the fixed function pipeline) experience.
 
