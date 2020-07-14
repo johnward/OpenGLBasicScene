@@ -34,7 +34,6 @@ Camera camera;
 Material shinyMaterial;
 Material dullMaterial;
 
-Model xwing;
 Model enterprise;
 
 GLfloat deltaTime = 0.0f;
@@ -43,7 +42,8 @@ GLfloat lastTime = 0.0f;
 Texture brinkTexture;
 Texture dirtyTexture;
 Texture plainTexture;
-//Texture brick2Texture;
+Texture brick2Texture;
+Texture roadTexture;
 
 DirectionalLight mainLight;
 PointLight pointLights[MAX_POINT_LIGHTS];
@@ -121,13 +121,6 @@ void CreateObjects()
 		1.0f, -1.0f, -0.6f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f,  // Bottom Right
 		0.0f, 1.0f, 0.0f, 1.0f, 2.0f, 0.0f, 0.0f, 0.0f};   // Top
 
-	// GLfloat vertices[] = {
-	// 	//   x    y     z    u      v     nx    ny    nz
-	// 	-1.0f, -1.0f, -0.6f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom Left
-	// 	0.0f, -1.0f, 1.0f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f,   // Bottom Back (Middle)
-	// 	1.0f, 1.0f, -0.6f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,   // Bottom Right
-	// 	0.0f, 1.0f, 0.0f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f};   // Top
-
 	GLfloat floorVertices[] = {
 		-10.0f, 0.0f, -10.0f, 0.0f, 0.0f, 0.0f, -1.0f, 0.0f, // back left
 		10.0f, 0.0f, -10.0f, 10.0f, 0.0f, 0.0f, -1.0f, 0.0f, // back right
@@ -202,7 +195,7 @@ int main()
 	mainWindow.Initialise();
 
 	CreateObjects();
-	//CreateCube();
+	CreateCube();
 	CreateShaders();
 
 	camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f),
@@ -221,17 +214,17 @@ int main()
 	plainTexture = Texture((char *)"textures/plain.png");
 	plainTexture.LoadTextureA();
 
+	roadTexture = Texture((char *)"textures/road.jpg");
+	roadTexture.LoadTexture();
+
 	shinyMaterial = Material(4.0f, 256);
 	dullMaterial = Material(0.3f, 4);
-
-	xwing = Model();
-	xwing.LoadModel("models/star wars x-wing.obj");
 
 	enterprise = Model();
 	enterprise.LoadModel("models/enterprise1701d.obj");
 
-	//brick2Texture = Texture((char *)"textures/wall.jpg");
-	//brick2Texture.LoadTexture();
+	brick2Texture = Texture((char *)"textures/wall.jpg");
+	brick2Texture.LoadTexture();
 
 	dirtyTexture.UseTexture();
 
@@ -314,57 +307,50 @@ int main()
 		//glGetUniformfv(shaderList[0].GetShaderID(), shaderList[0].GetViewLocation(), viewVal);
 		glUniform3f(shaderList[0].GetEyePositionLocation(), camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
 
+		// Triangle 1
 		glm::mat4 model(1.0f);
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.5f));
-		//model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
-
 		glUniformMatrix4fv(uniformModel = shaderList[0].GetModelLocation(), 1, GL_FALSE, glm::value_ptr(model));
 		//float modelVal[16] = {0.0f};
 		//glGetUniformfv(shaderList[0].GetShaderID(), shaderList[0].GetModelLocation(), modelVal);
-
 		brinkTexture.UseTexture();
 		shinyMaterial.UseMaterial(shaderList[0].GetSpecularIntensityLocation(), shaderList[0].GetShininess());
 		meshList[0]->RenderMesh();
 
+		// Triangle 2
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(0.0f, 4.0f, -2.5f));
+		model = glm::translate(model, glm::vec3(4.0f, 0.0f, -2.5f));
 		//model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-
 		dirtyTexture.UseTexture();
 		dullMaterial.UseMaterial(shaderList[0].GetSpecularIntensityLocation(), shaderList[0].GetShininess());
 		meshList[1]->RenderMesh();
 
+		//Floor
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0.0f, -2.0f, -2.5f));
 		//model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-
-		dirtyTexture.UseTexture();
+		roadTexture.UseTexture();
 		shinyMaterial.UseMaterial(shaderList[0].GetSpecularIntensityLocation(), shaderList[0].GetShininess());
 		meshList[2]->RenderMesh();
 
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(-1.0f, -2.0f, -2.5f));
-		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		shinyMaterial.UseMaterial(shaderList[0].GetSpecularIntensityLocation(), shaderList[0].GetShininess());
-		xwing.RenderModel();
-
-		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(-2.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-20.0f, -2.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		shinyMaterial.UseMaterial(shaderList[0].GetSpecularIntensityLocation(), shaderList[0].GetShininess());
 		enterprise.RenderModel();
 
-		// model = glm::mat4(1.0f);
-		// model = glm::translate(model, glm::vec3(0.0f, 0.0f, -7.5f));
-		// model = glm::rotate(model, 60 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		// model = scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
-		// glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		// brick2Texture.UseTexture();
-		//meshList[2]->RenderMesh();
+		// Cube
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-4.0f, 0.0f, -3.5f));
+		model = glm::rotate(model, 60 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		shinyMaterial.UseMaterial(shaderList[0].GetSpecularIntensityLocation(), shaderList[0].GetShininess());
+		brick2Texture.UseTexture();
+		meshList[3]->RenderMesh();
 
 		glUseProgram(0);
 		mainWindow.swapBuffers();

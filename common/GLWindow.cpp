@@ -50,7 +50,7 @@ int GLWindow::Initialise()
     mainWindow = glfwCreateWindow(
         width,
         height,
-        "Test Window",
+        "OpenGL Basic Scene",
         NULL,  // Monitor
         NULL); // If it is shared accross systems
 
@@ -100,6 +100,7 @@ void GLWindow::createCallbacks()
 {
     glfwSetKeyCallback(mainWindow, handleKeys);
     glfwSetCursorPosCallback(mainWindow, handleMouse);
+    glfwSetFramebufferSizeCallback(mainWindow, framebufferSizeCallback);
 }
 
 GLfloat GLWindow::getXChange()
@@ -158,6 +159,11 @@ void GLWindow::handleMouse(GLFWwindow *window, double xPos, double yPos)
     theWindow->lastY = yPos;
 
     //printf("x:%.6f, y:%.6f\n", theWindow->xChange, theWindow->yChange);
+}
+
+void GLWindow::framebufferSizeCallback(GLFWwindow *window, int width, int height)
+{
+    glViewport(0, 0, width, height);
 }
 
 GLWindow::~GLWindow()
