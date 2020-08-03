@@ -1,6 +1,6 @@
 # OpenGL Basic Scene
 
-This project has been used for me to get back up to speed with OpenGL / Graphics programming, as I have 20+ years C++ and have a few years graphics device driver / OpenGL (originally the fixed function pipeline) experience.
+This project to show the various parts of the OpenGL / Graphics programming pipline to produce a scene, as I have 20+ years C++ and have a few years graphics device driver / OpenGL (originally the fixed function pipeline) experience. This is to be used as a test program for compositing etc.
 
 ## What is Covered in this Repo
 
