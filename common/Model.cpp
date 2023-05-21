@@ -79,17 +79,21 @@ void Model::LoadMesh(aiMesh *mesh, const aiScene *scene)
 
     for (size_t i = 0; i < mesh->mNumVertices; i++)
     {
-        vertices.insert(vertices.end(), {mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z});
+        GLfloat arr[] =  {mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z};
+        vertices.insert(vertices.end(), arr, arr + 3);
         if (mesh->mTextureCoords[0])
         {
-            vertices.insert(vertices.end(), {mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y});
+            GLfloat arr1[] = {mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y};
+            vertices.insert(vertices.end(), arr1, arr1+2);
         }
         else
         {
-            vertices.insert(vertices.end(), {0.0f, 0.0f});
+            GLfloat arr1[] =  {0.0f, 0.0f};
+            vertices.insert(vertices.end(), arr1, arr1 + 2);
         }
 
-        vertices.insert(vertices.end(), {-mesh->mNormals[i].x, -mesh->mNormals[i].y, -mesh->mNormals[i].z});
+        GLfloat arr1[] = {-mesh->mNormals[i].x, -mesh->mNormals[i].y, -mesh->mNormals[i].z};
+        vertices.insert(vertices.end(), arr1, arr1 + 3);
     }
 
     for (size_t i = 0; i < mesh->mNumFaces; i++)

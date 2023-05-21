@@ -135,7 +135,7 @@ void Shader::GetShaderUniformsInfo()
             glGetUniformfv(shaderID, uniformModel, model);
             printf("Name Length: %d, Size: %i, Type: %i, Name: %s", maxLength, size, type, name);
         }
-        delete name;
+        delete[] name;
     }
 }
 
